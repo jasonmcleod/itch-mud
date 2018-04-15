@@ -1,0 +1,10 @@
+module.exports = {
+    CAMERA_WIDTH: 35,
+    CAMERA_HEIGHT: 26,
+    MAP_WIDTH: 1000,
+    MAP_HEIGHT: 1000,
+    MOVE_SPEED: 200,
+    TICK_RATE: 200,
+    INVENTORY_WIDTH: 8,
+    INVENTORY_HEIGHT: 4
+}

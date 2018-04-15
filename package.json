@@ -1,0 +1,25 @@
+{
+  "name": "itch-mud",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jasonmcleod/itch-mud.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jasonmcleod/itch-mud/issues"
+  },
+  "homepage": "https://github.com/jasonmcleod/itch-mud#readme",
+  "dependencies": {
+    "blessed": "^0.1.81",
+    "sequelize": "^4.37.6",
+    "sqlite3": "^4.0.0",
+    "telnet2": "0.0.1"
+  }
+}
