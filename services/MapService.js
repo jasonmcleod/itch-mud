@@ -48,6 +48,8 @@ class MapService {
                 
                 let obj = tile;
                 if(fixture) obj = fixture;
+                if(x === ~~(C.CAMERA_WIDTH / 2) && y === (C.CAMERA_HEIGHT / 2)) { obj = `{${bg}-bg}` + this.game.dataService.data.players.refs[1].ascii + `{/${bg}-bg}`; }
+
                 out += obj;
             }
             out+='\n';

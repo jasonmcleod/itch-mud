@@ -17,17 +17,19 @@ class DataService {
 
         this.defineMapTile();
         this.defineFixture();
+        this.definePlayer();
     }
 
     load() {
         const promise = new Promise((resolve, reject) => {
             Promise.all([
                 this.loadMapTiles(),
-                this.loadFixtures()
-
+                this.loadFixtures(),
+                this.loadPlayers()
             ]).then((values) => {
                 Object.assign(this.data, { mapTiles: values[0]})
                 Object.assign(this.data, { fixtures: values[1]})
+                Object.assign(this.data, { players: values[2]})
                 resolve();                
             });
         });
@@ -59,6 +61,13 @@ class DataService {
         });
     }
 
+    definePlayer() {
+        this.models.playerRef = sequelize.define('playerRef', {
+            id: {type: Sequelize.INTEGER, primaryKey: true},
+            ascii: Sequelize.STRING
+        });
+    }
+
     loadMapTiles() {
         const promise = new Promise((resolve, reject) => {
             tableToObject(this.models.mapTile, (data) => {
@@ -75,6 +84,16 @@ class DataService {
                 tableToObject(this.models.fixtureRef, (refs) => {
                     resolve({instances, refs});
                 });
+            });
+        });
+
+        return promise;
+    }
+
+    loadPlayers() {
+        const promise = new Promise((resolve, reject) => {
+            tableToObject(this.models.playerRef, (data) => {
+                resolve({refs: data});
             });
         });
 
