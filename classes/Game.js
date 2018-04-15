@@ -32,14 +32,14 @@ class Game {
     }
 
     login(client, name, password, callback) {
+        // todo: move into service
         this.dataService.models.account.find({where:{name, password}}).then((result) => {
             if(!result) return callback({success: false, message: 'Invalid credentials'});
             
             this.dataService.models.player.find({where: {account: result.dataValues.id}}).then((result) => {
+                Object.assign(client.player, result.dataValues);
                 client.authenticated = true;
-                client.player.x = result.dataValues.x;
-                client.player.y = result.dataValues.y;
-                client.player.name = result.dataValues.name;
+                this.dataService.data.players.instances[result.id] = client.player;
 
                 client.setScene(new PlayScene(client));
                 callback({success: true, character: result.dataValues.id});

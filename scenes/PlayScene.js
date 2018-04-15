@@ -95,10 +95,10 @@ class PlayScene {
             hidden: true
         });
 
-        this.scene.canvas.key('left', () => { Object.assign(this.client.player, this.client.game.mapService.tryMove(this.client, -1, 0)); });
-        this.scene.canvas.key('up', () => { Object.assign(this.client.player, this.client.game.mapService.tryMove(this.client, 0, -1)); });        
-        this.scene.canvas.key('right', () => { Object.assign(this.client.player, this.client.game.mapService.tryMove(this.client, 1, 0)); });
-        this.scene.canvas.key('down', () => { Object.assign(this.client.player, this.client.game.mapService.tryMove(this.client, 0, 1)); });  
+        this.scene.canvas.key('left', () => { this.client.player.tryMove(this.client, -1, 0); });
+        this.scene.canvas.key('up', () => { this.client.player.tryMove(this.client, 0, -1); });  
+        this.scene.canvas.key('right', () => { this.client.player.tryMove(this.client, 1, 0); });
+        this.scene.canvas.key('down', () => { this.client.player.tryMove(this.client, 0, 1); });
 
         this.client.screen.key('space', () => {
             this.scene.commandPrompt.show();

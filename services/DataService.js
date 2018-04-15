@@ -11,8 +11,9 @@ class DataService {
     constructor() {
         this.models = {};
         this.data = {
-            instances: {},
-            refs: {}
+            mapTiles: { instances: {} },
+            fixtures: { instances: {}, refs: {} },
+            players:  { instances: {}, refs: {} }
         };
 
         this.defineMapTile();
@@ -29,9 +30,9 @@ class DataService {
                 this.loadFixtures(),
                 this.loadPlayers()
             ]).then((values) => {
-                Object.assign(this.data, { mapTiles: values[0]})
-                Object.assign(this.data, { fixtures: values[1]})
-                Object.assign(this.data, { players: values[2]})
+                Object.assign(this.data.mapTiles, values[0])
+                Object.assign(this.data.fixtures, values[1])
+                Object.assign(this.data.players, values[2])
                 resolve();                
             });
         });

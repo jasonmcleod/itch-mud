@@ -34,6 +34,16 @@ class MapService {
         return false;
     }
 
+    getPlayer(x, y, bg) {
+        for(let i in this.game.dataService.data.players.instances) {
+            if(this.game.dataService.data.players.instances[i].x === x & this.game.dataService.data.players.instances[i].y === y) {
+                // todo: dont render local player
+                return `{${bg}-bg}${this.game.dataService.data.players.refs[this.game.dataService.data.players.instances[i].ref].ascii}{/${bg}-bg}`;
+            }
+        }
+        return false;
+    }
+    
     getMarkup(client) {
         let cameraX = client.player.x - Math.floor((C.CAMERA_WIDTH) / 2);
         let cameraY = client.player.y - Math.floor((C.CAMERA_HEIGHT) / 2);
@@ -48,9 +58,11 @@ class MapService {
                 let bg = this.extractBackground(tile); 
 
                 let fixture = this.getFixture(workingX, workingY, bg);
+                let player = this.getPlayer(workingX, workingY, bg);
                 
                 let obj = tile;
                 if(fixture) obj = fixture;
+                if(player) obj = player;
                 if(x === ~~(C.CAMERA_WIDTH / 2) && y === (C.CAMERA_HEIGHT / 2)) { obj = `{${bg}-bg}` + this.game.dataService.data.players.refs[1].ascii + `{/${bg}-bg}`; }
 
                 out += obj;
@@ -58,19 +70,6 @@ class MapService {
             out+='\n';
         }
         return out;
-    }
-
-    tryMove(client, x=0, y=0) {
-        // assume no movement
-        let adjusted = {x: client.player.x, y: client.player.y }
-        if(Date.now() - client.lastMove > C.MOVE_SPEED) {
-            if(!this.blocksWalk(this.tileAt(client.player.x + x, client.player.y + y))) {
-                client.lastMove = Date.now();
-                adjusted.x = client.player.x + x;
-                adjusted.y = client.player.y + y;
-            }
-        }
-        return adjusted;
     }
 }
 
