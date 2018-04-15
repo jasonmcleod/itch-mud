@@ -63,7 +63,7 @@ class PlayScene {
             }
         });
 
-        this.scene.chatlog = blessed.box({
+        this.scene.chatLog = blessed.box({
             parent: this.client.screen,
             tags: true,
             height: 6,
@@ -80,27 +80,37 @@ class PlayScene {
             content: 'Welcome to Braiv Mud!'
         });
 
+        this.scene.commandPrompt = blessed.textbox({
+            inputOnFocus: true,
+            parent: this.client.screen,
+            border: 'line',
+            height: 3,
+            width: 117,
+            top: 29,
+            left: 3,
+            label: ' {white-fg}Enter command{/white-fg} ',
+            border:'bg',
+            tags: true,
+            keys: true,
+            hidden: true
+        });
+
         this.scene.canvas.key('left', () => { Object.assign(this.client.player, this.client.game.mapService.tryMove(this.client, -1, 0)); });
         this.scene.canvas.key('up', () => { Object.assign(this.client.player, this.client.game.mapService.tryMove(this.client, 0, -1)); });        
         this.scene.canvas.key('right', () => { Object.assign(this.client.player, this.client.game.mapService.tryMove(this.client, 1, 0)); });
         this.scene.canvas.key('down', () => { Object.assign(this.client.player, this.client.game.mapService.tryMove(this.client, 0, 1)); });  
 
         this.client.screen.key('space', () => {
-            this.scene.command.show();
-            this.scene.command.focus();
-            this.scene.command.input('Question?', '', (err, value) => {
-                this.client.commandHandler.handle(value);
-                this.scene.command.hide();
-            });
+            this.scene.commandPrompt.show();
+            this.scene.commandPrompt.focus();
         });     
 
-        this.client.gametick = setInterval(() => {
-            let cameraX = this.client.player.x - Math.floor((C.CAMERA_WIDTH) / 2);
-            let cameraY = this.client.player.y - Math.floor((C.CAMERA_HEIGHT) / 2);
-            const canvasMarkup = this.client.game.mapService.build(cameraX, cameraY)
-            this.scene.canvas.setContent(canvasMarkup);
-            this.client.screen.render();
-        }, C.TICK_RATE);
+        this.scene.commandPrompt.on('submit', (value) => {
+            console.log('parse!');
+            this.client.game.commandService.parse(this.client, value);
+            this.scene.commandPrompt.hide();
+            this.scene.commandPrompt.clearValue();
+        });
 
         this.scene.canvas.focus();
     }    

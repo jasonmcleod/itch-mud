@@ -1,0 +1,8 @@
+size = 123 x 40
+handle ssh connections and show instructions to use telnet
+
+authentication
+command prompt
+chat
+see other players
+
