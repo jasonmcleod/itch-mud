@@ -7,7 +7,6 @@ const game = new Game(); // await assets before setting up telnet?
 
 let server = telnet({ tty: true }, (client) => {
     let newUser = new MudClient(client, game);
-    console.log('client connecting');
     game.connect(newUser);
 });
 server.listen(port);

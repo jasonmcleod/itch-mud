@@ -18,6 +18,8 @@ class DataService {
         this.defineMapTile();
         this.defineFixture();
         this.definePlayer();
+        this.defineAccount();
+        this.definePlayer();
     }
 
     load() {
@@ -62,9 +64,30 @@ class DataService {
     }
 
     definePlayer() {
+        this.models.player = sequelize.define('player', {
+            id: {type: Sequelize.INTEGER, primaryKey: true},
+            account: Sequelize.INTEGER,
+            ref: Sequelize.STRING,
+            name: Sequelize.INTEGER,
+            map: Sequelize.STRING,
+            x: Sequelize.INTEGER,
+            y: Sequelize.INTEGER,
+            hp: Sequelize.INTEGER,
+            hpMax: Sequelize.INTEGER        
+        });
+
         this.models.playerRef = sequelize.define('playerRef', {
             id: {type: Sequelize.INTEGER, primaryKey: true},
             ascii: Sequelize.STRING
+        });
+    }
+
+    defineAccount() {
+        this.models.account = sequelize.define('account', {
+            id: {type: Sequelize.INTEGER, primaryKey: true},
+            email: Sequelize.STRING,
+            name: Sequelize.STRING,
+            password: Sequelize.STRING
         });
     }
 
