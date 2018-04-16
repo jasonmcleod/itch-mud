@@ -7,6 +7,10 @@ size = 123 x 40
 TODO
 
 handle ssh connections and show instructions to use telnet
+save position on close
+pick up items
+open doors when tapping
+
 
 
 
@@ -29,4 +33,5 @@ chat
     send
     view
     truncate down to 7 messages
-
+command parsing
+command aliases
