@@ -66,7 +66,7 @@ class PlayScene {
         this.scene.chatLog = blessed.box({
             parent: this.client.screen,
             tags: true,
-            height: 6,
+            height: 9,
             width: 117,
             left:3,
             bottom:2,

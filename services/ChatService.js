@@ -1,3 +1,4 @@
+const C = require('../constants');
 class ChatService {
     constructor() {
         this.history = [];
@@ -9,7 +10,7 @@ class ChatService {
             name: client.player.name,
             message
         });
-        if(this.history.length === 7) {
+        if(this.history.length === C.CHAT_HISTORY) {
             this.history.shift()
         }
 

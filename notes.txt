@@ -1,8 +1,36 @@
+NOTES
+
 size = 123 x 40
-handle ssh connections and show instructions to use telnet
+
+
+
+TODO
 
 authentication
 command prompt
 chat
 see other players
+handle ssh connections and show instructions to use telnet
+
+
+
+CURRENT FEATURES
+
+load instances
+    maptile
+    fixture
+    account
+    player
+load refs
+    fixture
+    player
+connect
+login (without password hashing)
+logout - will remove players from object
+move
+see other players (without names)
+chat
+    send
+    view
+    truncate down to 7 messages
 

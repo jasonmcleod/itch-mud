@@ -13,7 +13,8 @@ class DataService {
         this.data = {
             mapTiles: { instances: {} },
             fixtures: { instances: {}, refs: {} },
-            players:  { instances: {}, refs: {} }
+            players:  { instances: {}, refs: {} },
+            items:    { instances: {}, refs: {} }
         };
 
         this.defineMapTile();
@@ -21,6 +22,7 @@ class DataService {
         this.definePlayer();
         this.defineAccount();
         this.definePlayer();
+        this.defineItem();
     }
 
     load() {
@@ -28,11 +30,13 @@ class DataService {
             Promise.all([
                 this.loadMapTiles(),
                 this.loadFixtures(),
-                this.loadPlayers()
+                this.loadPlayers(),
+                this.loadItems()
             ]).then((values) => {
                 Object.assign(this.data.mapTiles, values[0])
                 Object.assign(this.data.fixtures, values[1])
                 Object.assign(this.data.players, values[2])
+                Object.assign(this.data.items, values[3])
                 resolve();                
             });
         });
@@ -92,6 +96,24 @@ class DataService {
         });
     }
 
+    defineItem() {
+        this.models.item = sequelize.define('item', {
+            id: {type: Sequelize.INTEGER, primaryKey: true},
+            ref: Sequelize.INTEGER,
+            slot: Sequelize.INTEGER,
+            container: Sequelize.INTEGER,
+            map: Sequelize.STRING,
+            x: Sequelize.INTEGER,
+            y: Sequelize.INTEGER
+        });
+
+        this.models.itemRef = sequelize.define('itemRef', {
+            id: {type: Sequelize.INTEGER, primaryKey: true},
+            ascii: Sequelize.STRING
+        });
+
+    }
+
     loadMapTiles() {
         const promise = new Promise((resolve, reject) => {
             tableToObject(this.models.mapTile, (data) => {
@@ -121,6 +143,18 @@ class DataService {
             });
         });
 
+        return promise;
+    }
+
+    loadItems() {
+        const promise = new Promise((resolve, reject) => {
+            tableToObject(this.models.item, (instances) => {
+                tableToObject(this.models.itemRef, (refs) => {
+                    resolve({instances, refs});
+                });
+            });
+        });
+            
         return promise;
     }
 }

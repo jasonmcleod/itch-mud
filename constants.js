@@ -6,5 +6,6 @@ module.exports = {
     MOVE_SPEED: 100,
     TICK_RATE: 100,
     INVENTORY_WIDTH: 8,
-    INVENTORY_HEIGHT: 4
+    INVENTORY_HEIGHT: 4,
+    CHAT_HISTORY: 10
 }
