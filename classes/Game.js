@@ -4,10 +4,9 @@ const PlayScene = require('../scenes/PlayScene');
 const DataService = require('../services/DataService');
 const MapService = require('../services/MapService');
 const CommandService = require('../services/CommandService');
-const chatService = require('../services/ChatService');
 const playerService = require('../services/PlayerService');
 const dataService = require('../services/DataService');
-const mapService = require('../services/MapService');
+const renderService = require('../services/RenderService');
 
 class Game {
     constructor() {
@@ -15,7 +14,7 @@ class Game {
         
         dataService.load().then(() => {
             setInterval(() => {
-                this.renderAll();
+                this.render();
             }, C.TICK_RATE);
         });
     }
@@ -25,17 +24,13 @@ class Game {
         client.setScene('login');
     }
 
-    renderAll() {
+    render() {
         for(let c in this.connections) {
             const client = this.connections[c];
             if(!client.authenticated) continue;
 
-            const canvasMarkup = mapService.getMarkup(client);
-            const chatMarkup = chatService.getMarkup();
-
-            client.scene.canvas.setContent(canvasMarkup);
-            client.scene.chatLog.setContent(chatMarkup);
-
+            renderService.renderAll(client);
+            
             client.screen.render();
         }
     }

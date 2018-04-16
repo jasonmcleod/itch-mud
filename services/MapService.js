@@ -54,7 +54,6 @@ class MapService {
         return false;
     }
 
-    
     getMarkup(client) {
         let cameraX = client.player.x - Math.floor((C.CAMERA_WIDTH) / 2);
         let cameraY = client.player.y - Math.floor((C.CAMERA_HEIGHT) / 2);

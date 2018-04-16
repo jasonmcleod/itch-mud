@@ -114,5 +114,36 @@ class PlayScene {
         this.scene.canvas.focus();
     }    
 
+    eraseNames() {
+        this.names.forEach((n) => {
+            n.destroy();
+        });
+        this.names.length = 0;
+    }
+
+    drawNames(cameraX, cameraY) {
+        for(let p in dataService.players.instances) {
+            let instance = dataService.players.instances[p]
+            if(
+                (instance.x > cameraX && instance.x < cameraX + C.CAMERA_WIDTH) &&
+                (instance.y > cameraY && instance.y < cameraY + C.CAMERA_HEIGHT)
+            ) {
+                // todo: don't render local player
+                this.names.push(
+                    blessed.box({
+                        parent: this.scene.canvas,
+                        width: 12,
+                        height:1,
+                        transparent:true,
+                        tags: true,
+                        content: `{center}${instance.name} {/center}`,
+                        top: instance.y - cameraY + 1,
+                        left: (instance.x * 2) - (cameraX*2)
+                    })
+                );        
+            }
+        }
+    }
+
 }
 module.exports = PlayScene;
