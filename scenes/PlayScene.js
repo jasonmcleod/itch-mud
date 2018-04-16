@@ -8,8 +8,6 @@ class PlayScene {
         this.client = client;
         this.scene = {};        
         this.build();
-
-        return this.scene;
     }
 
     build() {

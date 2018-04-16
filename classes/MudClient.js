@@ -22,7 +22,7 @@ class MudClient {
     }
 
     setScene(scene) {
-        this.scene = new scenes[scene](this);
+        this.scene = new scenes[scene](this).scene;
     }
 }
 

@@ -11,8 +11,6 @@ class LoginScene {
         this.scene = {};
 
         this.build();
-
-        return this.scene;
     }
 
     build() {
