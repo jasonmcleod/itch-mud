@@ -3,11 +3,18 @@ const Screen = require('./Screen');
 const uuidv1 = require('uuid/v1');
 const Player = require('./Player');
 
+const PlayScene = require('../scenes/PlayScene');
+const LoginScene = require('../scenes/LoginScene');
+
+const scenes = {
+    play: PlayScene,
+    login: LoginScene
+};
+
 class MudClient {
-    constructor(client, game) {
+    constructor(client) {
         this.id = uuidv1();
         this.scene = {};
-        this.game = game;
         this.client = client;
         this.lastMove = 0;
         this.player = new Player();
@@ -15,7 +22,7 @@ class MudClient {
     }
 
     setScene(scene) {
-        this.scene = scene;
+        this.scene = new scenes[scene](this);
     }
 }
 

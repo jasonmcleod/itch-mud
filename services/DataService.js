@@ -126,4 +126,4 @@ class DataService {
 }
 
 
-module.exports = DataService;
+module.exports = new DataService();

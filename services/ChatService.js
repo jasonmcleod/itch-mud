@@ -1,5 +1,5 @@
 class ChatService {
-    constructor(game) {
+    constructor() {
         this.history = [];
         this.cache = '';
     }
@@ -30,4 +30,4 @@ class ChatService {
     }
 }
 
-module.exports = ChatService;
+module.exports = new ChatService();

@@ -1,42 +1,47 @@
 const blessed = require('blessed');
+const playerService = require('../services/PlayerService');
+
 class Screen {
-    constructor(connection) {
+    constructor(mudClient) {
         this.screen = blessed.screen({
             smartCSR: true,
-            input: connection.client,
-            output: connection.client,
+            input: mudClient.client,
+            output: mudClient.client,
             terminal: 'xterm-256color',
             fullUnicode: true
         });
 
         this.screen.on('destroy', () => {
-            if (connection.client.writable) {
-                connection.client.destroy();
+            if (mudClient.client.writable) {
+                playerService.logout(mudClient);
+                mudClient.client.destroy();
             }
         });
 
         this.screen.key('q', () => {
-            connection.client.destroy();
+            playerService.logout(mudClient);
+            mudClient.client.destroy();
         });
                
-        connection.client.on('debug', (msg) => {
+        mudClient.client.on('debug', (msg) => {
             console.error(msg);
         });
     
-        connection.client.on('term', (terminal) => {
+        mudClient.client.on('term', (terminal) => {
             this.screen.terminal = terminal;
             this.screen.render();
         });
 
-        connection.client.on('size', (width, height) => {
-            connection.client.columns = width;
-            connection.client.rows = height;
-            connection.client.emit('resize');
+        mudClient.client.on('size', (width, height) => {
+            mudClient.client.columns = width;
+            mudClient.client.rows = height;
+            mudClient.client.emit('resize');
         });
 
-        connection.client.on('close', () => {
+        mudClient.client.on('close', () => {
             if (!this.screen.destroyed) {
-                connection.client.destroy();
+                playerService.logout(mudClient);
+                mudClient.client.destroy();
             }
         });
     }

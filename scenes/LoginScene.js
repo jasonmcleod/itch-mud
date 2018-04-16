@@ -1,4 +1,5 @@
 const blessed = require('blessed');
+const playerService = require('../services/PlayerService');
 
 class LoginScene {
     constructor(client) {
@@ -88,7 +89,7 @@ class LoginScene {
 
         this.scene.passwordField.on('submit', (value) => {
             this.password = value;
-            this.client.game.login(this.client, this.username, this.password, (state) => {
+            playerService.login(this.client, this.username, this.password, (state) => {
                 if(!state.success) {
                     this.showError(state.message);
                 }

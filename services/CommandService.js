@@ -1,6 +1,8 @@
+const chatService = require('./ChatService');
+
 class CommandService {
-    constructor(game) {
-        this.game = game;
+    constructor() {
+        
     }
 
     parse(client, text) {
@@ -10,8 +12,8 @@ class CommandService {
         const args = parts.join(' ');
 
         if(command === 'say' || command === 's') {
-            this.game.chatService.send(client, args);
+            chatService.send(client, args);
         }
     }
 }
-module.exports = CommandService;
+module.exports = new CommandService();

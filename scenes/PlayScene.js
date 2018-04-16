@@ -1,5 +1,7 @@
 const C = require('../constants');
 const blessed = require('blessed');
+const playerService = require('../services/PlayerService');
+const commandService = require('../services/CommandService');
 
 class PlayScene {
     constructor(client) {
@@ -95,10 +97,10 @@ class PlayScene {
             hidden: true
         });
 
-        this.scene.canvas.key('left', () => { this.client.player.tryMove(this.client, -1, 0); });
-        this.scene.canvas.key('up', () => { this.client.player.tryMove(this.client, 0, -1); });  
-        this.scene.canvas.key('right', () => { this.client.player.tryMove(this.client, 1, 0); });
-        this.scene.canvas.key('down', () => { this.client.player.tryMove(this.client, 0, 1); });
+        this.scene.canvas.key('left', () => { playerService.tryMove(this.client, -1, 0); });
+        this.scene.canvas.key('up', () => { playerService.tryMove(this.client, 0, -1); });  
+        this.scene.canvas.key('right', () => { playerService.tryMove(this.client, 1, 0); });
+        this.scene.canvas.key('down', () => { playerService.tryMove(this.client, 0, 1); });
 
         this.client.screen.key('space', () => {
             this.scene.commandPrompt.show();
@@ -106,8 +108,7 @@ class PlayScene {
         });     
 
         this.scene.commandPrompt.on('submit', (value) => {
-            console.log('parse!');
-            this.client.game.commandService.parse(this.client, value);
+            commandService.parse(this.client, value);
             this.scene.commandPrompt.hide();
             this.scene.commandPrompt.clearValue();
         });

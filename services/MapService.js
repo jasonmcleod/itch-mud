@@ -1,19 +1,20 @@
 const fs = require('fs');
 const C = require('../constants');
 const map = require('../data/map.js');
+const dataService = require('./DataService');
 
 class MapService {
-    constructor(game) {
-        this.game = game;
+    constructor() {
+        
     }
 
     getTile(index) {
         if(index <= 0) return 1;
-        return this.game.dataService.data.mapTiles.instances[map[index]].ascii;
+        return dataService.data.mapTiles.instances[map[index]].ascii;
     }
 
     blocksWalk(index) {
-        return this.game.dataService.data.mapTiles.instances[index].blocksWalk;
+        return dataService.data.mapTiles.instances[index].blocksWalk;
     }
 
     tileAt(x, y) {
@@ -26,19 +27,19 @@ class MapService {
     }
 
     getFixture(x, y, bg) {
-        for(let i in this.game.dataService.data.fixtures.instances) {
-            if(this.game.dataService.data.fixtures.instances[i].x === x & this.game.dataService.data.fixtures.instances[i].y === y) {
-                return this.game.dataService.data.fixtures.refs[this.game.dataService.data.fixtures.instances[i].ref].ascii;
+        for(let i in dataService.data.fixtures.instances) {
+            if(dataService.data.fixtures.instances[i].x === x & dataService.data.fixtures.instances[i].y === y) {
+                return dataService.data.fixtures.refs[dataService.data.fixtures.instances[i].ref].ascii;
             }
         }
         return false;
     }
 
     getPlayer(x, y, bg) {
-        for(let i in this.game.dataService.data.players.instances) {
-            if(this.game.dataService.data.players.instances[i].x === x & this.game.dataService.data.players.instances[i].y === y) {
+        for(let i in dataService.data.players.instances) {
+            if(dataService.data.players.instances[i].x === x & dataService.data.players.instances[i].y === y) {
                 // todo: dont render local player
-                return `{${bg}-bg}${this.game.dataService.data.players.refs[this.game.dataService.data.players.instances[i].ref].ascii}{/${bg}-bg}`;
+                return `{${bg}-bg}${dataService.data.players.refs[dataService.data.players.instances[i].ref].ascii}{/${bg}-bg}`;
             }
         }
         return false;
@@ -63,7 +64,7 @@ class MapService {
                 let obj = tile;
                 if(fixture) obj = fixture;
                 if(player) obj = player;
-                if(x === ~~(C.CAMERA_WIDTH / 2) && y === (C.CAMERA_HEIGHT / 2)) { obj = `{${bg}-bg}` + this.game.dataService.data.players.refs[1].ascii + `{/${bg}-bg}`; }
+                if(x === ~~(C.CAMERA_WIDTH / 2) && y === (C.CAMERA_HEIGHT / 2)) { obj = `{${bg}-bg}` + dataService.data.players.refs[1].ascii + `{/${bg}-bg}`; }
 
                 out += obj;
             }
@@ -73,4 +74,4 @@ class MapService {
     }
 }
 
-module.exports = MapService;
+module.exports = new MapService();
