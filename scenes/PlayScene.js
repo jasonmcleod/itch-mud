@@ -63,7 +63,7 @@ class PlayScene {
             }
         });
 
-        this.scene.chatLog = blessed.box({
+        this.scene.console = blessed.box({
             parent: this.client.screen,
             tags: true,
             height: 9,
@@ -76,8 +76,8 @@ class PlayScene {
                     bg:'black',
                     ch: ' ',
                 }
-            },
-            content: 'Welcome to Braiv Mud!'
+            }
+            // content: 'Welcome to Braiv Mud!'
         });
 
         this.scene.commandPrompt = blessed.textbox({

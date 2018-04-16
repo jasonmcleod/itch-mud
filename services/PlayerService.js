@@ -17,6 +17,7 @@ class PlayerService {
                 dataService.data.players.instances[result.id] = client.player;
 
                 client.setScene('play');
+                client.console.add('Welcome to Braiv Mud!');
                 callback({success: true, character: result.dataValues.id});
             });
 

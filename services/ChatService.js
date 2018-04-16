@@ -1,34 +1,18 @@
 const C = require('../constants');
+const game = require('../classes/Game');
+
 class ChatService {
     constructor() {
-        this.history = [];
-        this.cache = '';
+    
     }
 
     send(client, message) {
-        this.history.push({
-            name: client.player.name,
-            message
-        });
-        if(this.history.length === C.CHAT_HISTORY) {
-            this.history.shift()
+        for(let c in game.connections) {
+            let client = game.connections[c];
+            client.console.add(`${client.player.name}: ${message}`);
         }
-
-        this.cache = this.build();
     }
 
-    getMarkup() {
-        return this.cache;
-    }
-
-    build() {
-        let out = '';
-        this.history.forEach((r) => {
-            out+= `${r.name}: ${r.message}\n`;
-        });
-         
-        return out;
-    }
 }
 
 module.exports = new ChatService();

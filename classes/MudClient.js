@@ -2,6 +2,7 @@ const C = require('../constants');
 const Screen = require('./Screen');
 const uuidv1 = require('uuid/v1');
 const Player = require('./Player');
+const Console = require('./Console');
 
 const PlayScene = require('../scenes/PlayScene');
 const LoginScene = require('../scenes/LoginScene');
@@ -19,6 +20,7 @@ class MudClient {
         this.lastMove = 0;
         this.player = new Player();
         this.screen = new Screen(this).screen;
+        this.console = new Console();
     }
 
     setScene(scene) {

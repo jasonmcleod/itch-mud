@@ -6,10 +6,6 @@ size = 123 x 40
 
 TODO
 
-authentication
-command prompt
-chat
-see other players
 handle ssh connections and show instructions to use telnet
 
 
@@ -28,7 +24,7 @@ connect
 login (without password hashing)
 logout - will remove players from object
 move
-see other players (without names)
+see other players
 chat
     send
     view

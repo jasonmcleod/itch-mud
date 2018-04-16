@@ -1,6 +1,5 @@
 const C = require('../constants');
 const blessed = require('blessed');
-const chatService = require('../services/ChatService');
 const mapService = require('../services/MapService');
 const dataService = require('../services/DataService');
 
@@ -10,17 +9,18 @@ class RenderService {
     }
 
     renderAll(client) {
-        
         this.canvas(client);
+        this.console(client);
         this.nameTags(client);
     }
 
     canvas(client) {
         const canvasMarkup = mapService.getMarkup(client);
-        const chatMarkup = chatService.getMarkup();
-
         client.scene.canvas.setContent(canvasMarkup);
-        client.scene.chatLog.setContent(chatMarkup);
+    }
+
+    console(client) {
+        client.scene.console.setContent(client.console.history.join('\n'));
     }
 
     nameTags(client) {
