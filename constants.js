@@ -7,5 +7,5 @@ module.exports = {
     TICK_RATE: 100,
     INVENTORY_WIDTH: 8,
     INVENTORY_HEIGHT: 4,
-    CONSOLE_HISTORY: 10
+    CONSOLE_HISTORY: 8
 }

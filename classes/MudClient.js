@@ -18,6 +18,7 @@ class MudClient {
         this.scene = {};
         this.client = client;
         this.lastMove = 0;
+        this.cache = {};
         this.player = new Player();
         this.screen = new Screen(this).screen;
         this.console = new Console();

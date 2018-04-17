@@ -5,8 +5,10 @@ const renderService = require('../services/RenderService');
 
 class Game {
     constructor() {
-        this.connections = {};
-        
+        this.connections = {};    
+    }
+
+    loadData() {
         dataService.load().then(() => {
             setInterval(() => {
                 this.render();

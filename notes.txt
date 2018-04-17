@@ -1,7 +1,7 @@
 NOTES
 
-size = 123 x 40
-
+size = 121 x 40
+the only constructor that actually does anything is game - should that be moved out?
 
 
 TODO

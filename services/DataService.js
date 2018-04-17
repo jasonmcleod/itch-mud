@@ -102,6 +102,7 @@ class DataService {
             ref: Sequelize.INTEGER,
             slot: Sequelize.INTEGER,
             container: Sequelize.INTEGER,
+            value: Sequelize.INTEGER,
             map: Sequelize.STRING,
             x: Sequelize.INTEGER,
             y: Sequelize.INTEGER
@@ -109,6 +110,7 @@ class DataService {
 
         this.models.itemRef = sequelize.define('itemRef', {
             id: {type: Sequelize.INTEGER, primaryKey: true},
+            name: Sequelize.STRING,
             ascii: Sequelize.STRING
         });
 

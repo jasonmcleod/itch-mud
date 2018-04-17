@@ -1,6 +1,7 @@
 const C = require('../constants');
 const dataService = require('../services/DataService');
 const mapService = require('../services/MapService');
+const inventoryService = require('../services/InventoryService');
 
 class PlayerService {
     constructor() {
@@ -20,8 +21,9 @@ class PlayerService {
                 client.console.add('Welcome to Braiv Mud!');
                 callback({success: true, character: result.dataValues.id});
             });
-
         });
+
+        inventoryService.fetch(client);
     }
 
     logout(client) {
