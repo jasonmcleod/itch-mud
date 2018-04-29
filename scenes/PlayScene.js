@@ -284,7 +284,6 @@ class PlayScene {
         });
 
         this.scene.canvas.focus();
-        
     }    
 
     createBindings() {
